@@ -106,11 +106,39 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+    # get the players ordered by # of wins
     players = playerStandings()
     pairs = []
+    # check if players are odd numbered
+    if countPlayers() % 2:
+        # returns the id of a random player who have had no bye round yet
+        odd_player_id = oddPlayer()
+        # find the player who will have the bye round in the list
+        # and place him at the end of the list
+        odd_player_idx = [item for item, v in enumerate(players)
+                          if v[0] == odd_player_id[0]]
+        players.append(players.pop(odd_player_idx[0]))
+        # and make the players even again by appending an empty player
+        players.append((None, None, None, None))
+    # create the pairs
     for i in range(0, len(players) - 1, 2):
         pairs.append((players[i][0],
                       players[i][1],
                       players[i+1][0],
                       players[i+1][1]))
     return pairs
+
+
+def oddPlayer():
+    """Return the id of a random player who have had no bye round yet"""
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("select p.id from players as p where "
+                "p.id NOT IN "
+                "(select winner from matches where loser is null) "
+                "order by random()")
+    player_id = cur.fetchone()
+    if player_id:
+        return player_id
+    else:
+        return False

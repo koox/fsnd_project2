@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS players ( id SERIAL PRIMARY KEY,
 -- create the matches table 
 CREATE TABLE IF NOT EXISTS matches ( id SERIAL,
 					winner INTEGER references players(id),
-					loser INTEGER references players(id),
+					loser INTEGER references players(id) NULL,
 					created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 					);
 -- sql view representing players with wins and number of matches
