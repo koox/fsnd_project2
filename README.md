@@ -15,7 +15,7 @@ First create a database called **tournament**. Then run the queries in the `tour
 These queries will create two *tables*, **players** and  **matches** and an *sql view* called **player_standings**.
 The view contains the player id's along with data about wins and number of matches.
 
-You can run the tests in `tournament_test.py`.
+You can run tests located in `tournament_test.py`.
 
 # Details
 
