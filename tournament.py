@@ -85,8 +85,13 @@ def reportMatch(winner, loser):
     """
     conn = connect()
     cur = conn.cursor()
-    cur.execute("insert into matches (winner,loser)"
-                "values (%s,%s)", (winner, loser))
+    cur.execute("insert into matches (winner)"
+                "values (%s) RETURNING id", (winner,))
+    match_id = cur.fetchone()[0]
+    cur.execute("insert into players_to_matches (player_id,match_id)"
+                "values (%s,%s)", (winner, match_id,))
+    cur.execute("insert into players_to_matches (player_id,match_id)"
+                "values (%s,%s)", (loser, match_id,))
     conn.commit()
     conn.close()
 
@@ -133,11 +138,17 @@ def oddPlayer():
     """Return the id of a random player who have had no bye round yet"""
     conn = connect()
     cur = conn.cursor()
+    #  not select the ones that have an odd number off opponents
+    #  and orde by random
     cur.execute("select p.id from players as p where "
                 "p.id NOT IN "
-                "(select winner from matches where loser is null) "
+                "(select pm.player_id , count(pm.player_id) as num "
+                "from players_to_matches as pm "
+                "group by pm.match_id "
+                "having mod(num,2) = 1) "
                 "order by random()")
     player_id = cur.fetchone()
+    conn.close()
     if player_id:
         return player_id
     else:
