@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS matches ( id SERIAL PRIMARY KEY,
 					created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 					);
 
--- create the matches table 
+-- create the mapping table between players and matches
 CREATE TABLE IF NOT EXISTS players_to_matches ( id SERIAL,
 					player_id INTEGER references players(id) ON DELETE CASCADE,
 					match_id INTEGER references matches(id) ON DELETE CASCADE

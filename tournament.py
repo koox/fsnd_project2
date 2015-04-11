@@ -139,13 +139,14 @@ def oddPlayer():
     conn = connect()
     cur = conn.cursor()
     #  not select the ones that have an odd number off opponents
-    #  and orde by random
+    #  and order by random
     cur.execute("select p.id from players as p where "
-                "p.id NOT IN "
-                "(select pm.player_id , count(pm.player_id) as num "
-                "from players_to_matches as pm "
-                "group by pm.match_id "
-                "having mod(num,2) = 1) "
+                "p.id NOT IN"
+                "(select m.winner from players_to_matches as pm "
+                "join matches as m "
+                "on pm.match_id = m.id "
+                "group by pm.match_id, m.winner "
+                "having mod(count(pm.player_id),2) = 1) "
                 "order by random()")
     player_id = cur.fetchone()
     conn.close()

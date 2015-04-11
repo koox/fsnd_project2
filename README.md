@@ -12,7 +12,7 @@ It was created for the purpose of the Fullstack Development nanodegree. This pro
 # Installation <a id="instalation"></a>
 
 First create a database called **tournament**. Then run the queries in the `tournament.sql` file.
-These queries will create two *tables*, **players** and  **matches** and an *sql view* called **player_standings**.
+These queries will create three *tables*, **players**,  **matches** and a *mapping table* between the two called **players_to_matches** and an *sql view* called **player_standings**.
 The view contains the player id's along with data about wins and number of matches.
 
 You can run tests located in `tournament_test.py`.
