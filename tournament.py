@@ -138,7 +138,7 @@ def oddPlayer():
     """Return the id of a random player who have had no bye round yet"""
     conn = connect()
     cur = conn.cursor()
-    #  not select the ones that have an odd number of opponents
+    #  not select the ones that have had matches with an odd number of opponents
     #  and order by random
     cur.execute("select p.id from players as p where "
                 "p.id NOT IN"
