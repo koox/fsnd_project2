@@ -7,7 +7,6 @@ It was created for the purpose of the Fullstack Development nanodegree. This pro
 
 - [Installation](#instalation)
 - [Details](#hot_it_works)
-- [Creator](#creator)
 
 # Installation <a id="instalation"></a>
 
@@ -34,7 +33,3 @@ No player can have more than one bye round throughout the tournament.
 - Support games where a draw (tied game) is possible.
 - When two players have the same number of wins, rank them according to OMW (Opponent Match Wins).
 - Support more than one tournament in the database.
-
-# Creator <a id="creator"></a>
-
-**Kyriakos Ziakoulis**
