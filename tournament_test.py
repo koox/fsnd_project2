@@ -11,12 +11,14 @@ def testDeleteMatches():
 
 
 def testDelete():
+    deletePlayersToMatches()
     deleteMatches()
     deletePlayers()
     print "2. Player records can be deleted."
 
 
 def testCount():
+    deletePlayersToMatches()
     deleteMatches()
     deletePlayers()
     c = countPlayers()
@@ -29,6 +31,7 @@ def testCount():
 
 
 def testRegister():
+    deletePlayersToMatches()
     deleteMatches()
     deletePlayers()
     registerPlayer("Chandra Nalaar")
@@ -40,6 +43,7 @@ def testRegister():
 
 
 def testRegisterCountDelete():
+    deletePlayersToMatches()
     deleteMatches()
     deletePlayers()
     registerPlayer("Markov Chaney")
@@ -58,6 +62,7 @@ def testRegisterCountDelete():
 
 
 def testStandingsBeforeMatches():
+    deletePlayersToMatches()
     deleteMatches()
     deletePlayers()
     registerPlayer("Melpomene Murray")
@@ -81,6 +86,7 @@ def testStandingsBeforeMatches():
 
 
 def testReportMatches():
+    deletePlayersToMatches()
     deleteMatches()
     deletePlayers()
     registerPlayer("Bruno Walton")
@@ -103,6 +109,7 @@ def testReportMatches():
 
 
 def testPairings():
+    deletePlayersToMatches()
     deleteMatches()
     deletePlayers()
     registerPlayer("Twilight Sparkle")
@@ -127,6 +134,7 @@ def testPairings():
 
 
 def testPairingsWhenOdd():
+    deletePlayersToMatches()
     deleteMatches()
     deletePlayers()
     registerPlayer("Twilight Sparkle")
@@ -136,18 +144,20 @@ def testPairingsWhenOdd():
     [id1, id2, id3] = [row[0] for row in standings]
     reportMatch(id1, id2)
     reportMatch(id3, None)
+    reportMatch(id3, id2)
+    reportMatch(id1, None)
     pairings = swissPairings()
     if len(pairings) != 2:
         raise ValueError(
             "For three players, swissPairings should return two pairs.")
     last_couple = pairings[-1]
-    if last_couple[0] == id3:
+    if last_couple[0] == id3 or last_couple[0] == id1:
         raise ValueError(
             "Player who already had a bye round cant have one again.")
     if last_couple[2]:
         raise ValueError(
             "The last pair should have the loser player asing to None.")
-    print "8. Odd numbered matches are corectly assingned."
+    print "8. Odd numbered matches are correctly assingned."
 
 if __name__ == '__main__':
     testDeleteMatches()

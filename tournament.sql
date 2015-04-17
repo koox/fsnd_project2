@@ -9,9 +9,10 @@
 -- DATABASE tournament;
 
 -- drop the tables before creating them
+DROP VIEW  IF EXISTS player_standings;
 DROP TABLE IF EXISTS players CASCADE;
 DROP TABLE IF EXISTS matches CASCADE;
-
+DROP TABLE IF EXISTS players_to_matches CASCADE;
 -- create the players table 
 CREATE TABLE IF NOT EXISTS players ( id SERIAL PRIMARY KEY,
 					name TEXT
@@ -24,7 +25,7 @@ CREATE TABLE IF NOT EXISTS matches ( id SERIAL PRIMARY KEY,
 					);
 
 -- create the mapping table between players and matches
-CREATE TABLE IF NOT EXISTS players_to_matches ( id SERIAL,
+CREATE TABLE IF NOT EXISTS players_to_matches ( id SERIAL PRIMARY KEY,
 					player_id INTEGER references players(id) ON DELETE CASCADE,
 					match_id INTEGER references matches(id) ON DELETE CASCADE
 					);
